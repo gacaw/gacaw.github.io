@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will Gaca | Software Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #120d1c;
+    --panel: #1b1329;
+    --line: #35284f;
+    --text: #e9e2f7;
+    --muted: #a294c4;
+    --violet: #8f5cf7;
+    --violet-soft: #c4b0fa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--ink);
+    color: var(--text);
+    font-family: 'Instrument Sans', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--violet); color: #fff; }
+
+  a { color: var(--violet-soft); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible { outline: 2px solid var(--violet-soft); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 680px; margin: 0 auto; padding: 72px 24px 64px; }
+
+  /* ---------- Header ---------- */
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--violet-soft); margin-bottom: 14px;
+  }
+  h1 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.4rem, 7vw, 3.4rem);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .intro { color: var(--muted); margin-top: 16px; max-width: 50ch; }
+  .header-links { margin-top: 24px; display: flex; gap: 22px; flex-wrap: wrap; font-weight: 600; font-size: 15.5px; }
+
+  /* ---------- Projects ---------- */
+  h2 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600; font-size: 1.15rem;
+    margin: 64px 0 18px;
+    color: var(--muted);
+    letter-spacing: .02em;
+  }
+
+  .project {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    display: flex;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .bar { width: 5px; background: linear-gradient(180deg, var(--violet), #5b34c9); flex-shrink: 0; }
+  .project .inner { padding: 18px 20px; flex: 1; min-width: 0; }
+  .project h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600; font-size: 1.2rem;
+    display: flex; align-items: baseline; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  }
+  .project h3 .when {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: .08em; color: var(--muted); font-weight: 400;
+  }
+  .project .line { color: var(--muted); font-size: 15.5px; margin-top: 4px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+  .tags span {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    padding: 4px 11px; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--violet-soft);
+  }
+  .plink { margin-top: 12px; font-size: 14.5px; font-weight: 600; }
+  .plink .note { color: var(--muted); font-weight: 400; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    margin-top: 64px; padding-top: 24px;
+    border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 14px;
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Software Developer · RPI CS '26</div>
+    <h1>Will Gaca</h1>
+    <p class="intro">Computer science graduate from Rensselaer Polytechnic Institute. Python, C#, and full-stack AI projects.</p>
+    <div class="header-links">
+      <a href="mailto:gacaw@rpi.edu">gacaw@rpi.edu</a>
+      <a href="https://github.com/gacaw" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/will-gaca-8ab82824a/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </header>
+
+  <h2>Projects</h2>
+
+  <article class="project">
+    <div class="bar"></div>
+    <div class="inner">
+      <h3>Solverah <span class="when">2025 – 2026</span></h3>
+      <p class="line">AI career-matching platform. Founder, full-stack.</p>
+      <div class="tags">
+        <span>Python</span><span>PyTorch</span><span>Flask</span><span>NLP</span>
+      </div>
+      <p class="plink"><span class="note">Private repo. Code available on request.</span></p>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="bar"></div>
+    <div class="inner">
+      <h3>Live Broadcast Graphics · SMT <span class="when">2024</span></h3>
+      <p class="line">Production C# aired live on CBS. Scoring bugs, tickers, lower thirds.</p>
+      <div class="tags">
+        <span>C#</span><span>Real-time</span><span>Data visualization</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="bar"></div>
+    <div class="inner">
+      <h3>Crazy Pineapple OFC Solver <span class="when">In progress</span></h3>
+      <p class="line">Poker strategy engine with Monte Carlo simulation across parallel Web Workers.</p>
+      <div class="tags">
+        <span>React</span><span>JavaScript</span><span>Web Workers</span>
+      </div>
+      <p class="plink"><a href="https://github.com/gacaw" target="_blank" rel="noopener">GitHub →</a></p>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="bar"></div>
+    <div class="inner">
+      <h3>Banking Security Protocol <span class="when">Spring 2025</span></h3>
+      <p class="line">SSH/SSL implementation with crypto primitives from scratch. RPI course project.</p>
+      <div class="tags">
+        <span>C</span><span>RSA / DES</span><span>Pen testing</span>
+      </div>
+    </div>
+  </article>
+
+  <footer>
+    <div>© 2026 Will Gaca</div>
+    <div><a href="mailto:gacaw@rpi.edu">gacaw@rpi.edu</a></div>
+  </footer>
+</div>
+
+</body>
+</html>
