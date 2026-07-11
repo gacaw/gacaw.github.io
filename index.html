@@ -354,7 +354,7 @@
         </div>
         <div class="fact">
           <span class="label">Last watched:</span>
-          <span class="val">Pirates of the Caribbean: Dead Man's Chest <a href="https://letterboxd.com/willg003/" target="_blank" rel="noopener">(Letterboxd)</a></span>
+          <span class="val">Pirates of the Caribbean: Dead Man's Chest <a href="https://letterboxd.com/willg003/" target="_blank" rel="noopener">Letterboxd</a></span>
         </div>
         <div class="fact">
           <span class="label">Favorite fish:</span>
@@ -365,15 +365,14 @@
       <figure class="fish-photo">
         <img src="takitasmudskipper.jpeg" alt="Takita's Mudskipper resting in shallow water on a mudflat"
              onerror="this.closest('.fish-photo').classList.add('empty');">
-        <figcaption>Takita's Mudskipper</figcaption>
       </figure>
 
       <!-- Fish form: replace YOUR_FORM_ID in the action URL with your Formspree form ID -->
-      <form class="fish-form" id="fish-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form class="fish-form" id="fish-form" action="https://formspree.io/f/mdarqrny" method="POST">
         <label class="fish-form-label" for="fish-input">Tell me your favorite fish:</label>
         <div class="fish-form-row">
           <input id="fish-input" name="favorite_fish" type="text" required
-                 maxlength="100" placeholder="garden eel? barreleye? be honest">
+                 maxlength="100" placeholder="There are people that fish and those who just disturb the water">
           <button type="submit" aria-label="Submit" title="Submit">
             <svg class="fish-btn-icon" viewBox="0 0 64 44" width="36" height="25" aria-hidden="true" focusable="false">
               <path d="M15 22 L3 10 Q0 22 7 22 Q0 22 3 34 Z" fill="#6fb7cc"/>
@@ -419,14 +418,14 @@
         headers: { 'Accept': 'application/json' }
       });
       if (res.ok) {
-        fishStatus.textContent = 'Got it. Excellent taste in fish.';
+        fishStatus.textContent = 'nice fish';
         fishForm.reset();
       } else {
-        fishStatus.textContent = "Didn't go through. Try again?";
+        fishStatus.textContent = "Try again?";
         btn.disabled = false;
       }
     } catch {
-      fishStatus.textContent = "Didn't go through. Try again?";
+      fishStatus.textContent = "Try again?";
       btn.disabled = false;
     }
   });
