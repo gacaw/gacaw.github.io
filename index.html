@@ -6,7 +6,7 @@
 <title>Will Gaca | Software Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href=https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #120d1c;
@@ -14,8 +14,14 @@
     --line: #35284f;
     --text: #e9e2f7;
     --muted: #a294c4;
+
+    /* accent palette */
     --violet: #8f5cf7;
     --violet-soft: #c4b0fa;
+    --aqua: #3fd6c5;
+    --coral: #ff6f61;
+    --gold: #f6b73c;
+    --green: #5fdc8b;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,6 +33,7 @@
     font-size: 17px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   ::selection { background: var(--violet); color: #fff; }
@@ -34,6 +41,36 @@
   a { color: var(--violet-soft); text-decoration: none; }
   a:hover { text-decoration: underline; }
   a:focus-visible { outline: 2px solid var(--violet-soft); outline-offset: 3px; border-radius: 4px; }
+
+  /* ---------- Ambient background ---------- */
+  .glow {
+    position: fixed; border-radius: 50%;
+    filter: blur(90px); opacity: .22;
+    pointer-events: none; z-index: -1;
+  }
+  .glow-1 {
+    width: 480px; height: 480px; top: -140px; left: -120px;
+    background: var(--violet);
+    animation: drift1 18s ease-in-out infinite alternate;
+  }
+  .glow-2 {
+    width: 420px; height: 420px; top: 40%; right: -160px;
+    background: var(--aqua);
+    animation: drift2 22s ease-in-out infinite alternate;
+  }
+  .glow-3 {
+    width: 380px; height: 380px; bottom: -120px; left: 20%;
+    background: var(--coral); opacity: .13;
+    animation: drift1 26s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes drift1 {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(60px, 40px) scale(1.15); }
+  }
+  @keyframes drift2 {
+    from { transform: translate(0, 0) scale(1.1); }
+    to   { transform: translate(-70px, -50px) scale(1); }
+  }
 
   .wrap { max-width: 680px; margin: 0 auto; padding: 72px 24px 64px; }
 
@@ -45,15 +82,35 @@
   }
   h1 {
     font-family: 'Fraunces', serif;
-    font-weight: 800;
+    font-weight: 700;
     font-size: clamp(2.4rem, 7vw, 3.4rem);
     letter-spacing: -0.02em;
     line-height: 1.05;
+    background: linear-gradient(100deg, var(--violet-soft), var(--violet) 45%, var(--aqua));
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 9s ease-in-out infinite alternate;
+  }
+  @keyframes shimmer {
+    from { background-position: 0% 0; }
+    to   { background-position: 100% 0; }
   }
   .intro { color: var(--muted); margin-top: 16px; max-width: 50ch; }
   .header-links { margin-top: 24px; display: flex; gap: 22px; flex-wrap: wrap; font-weight: 600; font-size: 15.5px; }
+  .header-links a {
+    position: relative; text-decoration: none;
+  }
+  .header-links a::after {
+    content: ""; position: absolute; left: 0; bottom: -3px;
+    width: 100%; height: 2px; background: var(--aqua);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .25s ease;
+  }
+  .header-links a:hover::after { transform: scaleX(1); }
 
-  /* ---------- Projects ---------- */
+  /* ---------- Sections ---------- */
   h2 {
     font-family: 'Fraunces', serif;
     font-weight: 600; font-size: 1.15rem;
@@ -62,15 +119,32 @@
     letter-spacing: .02em;
   }
 
+  /* ---------- Cards ---------- */
   .project {
+    --accent: var(--violet);
     background: var(--panel);
     border: 1px solid var(--line);
     border-radius: 10px;
     display: flex;
     overflow: hidden;
     margin-bottom: 14px;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
   }
-  .bar { width: 5px; background: linear-gradient(180deg, var(--violet), #5b34c9); flex-shrink: 0; }
+  .project:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+    box-shadow: 0 8px 32px -12px color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  .p-violet { --accent: var(--violet); }
+  .p-coral  { --accent: var(--coral); }
+  .p-gold   { --accent: var(--gold); }
+  .p-green  { --accent: var(--green); }
+  .p-aqua   { --accent: var(--aqua); }
+
+  .bar {
+    width: 5px; flex-shrink: 0;
+    background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 55%, var(--ink)));
+  }
   .project .inner { padding: 18px 20px; flex: 1; min-width: 0; }
   .project h3 {
     font-family: 'Fraunces', serif;
@@ -86,10 +160,51 @@
   .tags span {
     font-family: 'JetBrains Mono', monospace; font-size: 12px;
     padding: 4px 11px; border-radius: 999px;
-    border: 1px solid var(--line); color: var(--violet-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line));
+    color: color-mix(in srgb, var(--accent) 80%, var(--text));
   }
   .plink { margin-top: 12px; font-size: 14.5px; font-weight: 600; }
+  .plink a { color: color-mix(in srgb, var(--accent) 75%, var(--text)); }
   .plink .note { color: var(--muted); font-weight: 400; }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- About ---------- */
+  .facts { display: flex; flex-direction: column; }
+  .fact {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fact:first-child { padding-top: 4px; }
+  .fact:last-child { border-bottom: none; }
+  .fact .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+    color: color-mix(in srgb, var(--aqua) 70%, var(--muted));
+    white-space: nowrap;
+  }
+  .fact .val { font-size: 16px; }
+
+  .fish-photo { margin-top: 18px; }
+  .fish-photo img {
+    display: block; width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    transition: transform .3s ease, border-color .3s ease;
+  }
+  .fish-photo img:hover {
+    transform: scale(1.015);
+    border-color: color-mix(in srgb, var(--aqua) 50%, var(--line));
+  }
+  .fish-photo figcaption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: .08em;
+    color: var(--muted); margin-top: 8px;
+  }
+  .fish-photo.empty { display: none; }
 
   /* ---------- Footer ---------- */
   footer {
@@ -98,15 +213,26 @@
     color: var(--muted); font-size: 14px;
     display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
   }
+
+  /* ---------- Reduced motion ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    .glow, h1 { animation: none; }
+    .project, .fish-photo img, .header-links a::after, .reveal { transition: none; }
+    .reveal { opacity: 1; transform: none; }
+  }
 </style>
 </head>
 <body>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+<div class="glow glow-3"></div>
 
 <div class="wrap">
   <header>
     <div class="eyebrow">Software Developer · RPI CS '26</div>
     <h1>Will Gaca</h1>
-    <p class="intro">Computer science graduate from Rensselaer Polytechnic Institute. Python, C#, and full-stack projects.</p>
+    <p class="intro">CS grad from RPI. I build things in Python, C#, and React, and I've shipped code that aired live on CBS. Currently hunting for my first full-time role.</p>
     <div class="header-links">
       <a href="mailto:will.gaca@gmail.com">will.gaca@gmail.com</a>
       <a href="https://github.com/gacaw" target="_blank" rel="noopener">GitHub</a>
@@ -116,11 +242,11 @@
 
   <h2>Projects</h2>
 
-  <article class="project">
+  <article class="project p-violet reveal">
     <div class="bar"></div>
     <div class="inner">
       <h3>Solverah <span class="when">2025 – 2026</span></h3>
-      <p class="line">AI career-matching platform. Full-stack devloper.</p>
+      <p class="line">AI career-matching platform. Full-stack developer.</p>
       <div class="tags">
         <span>Python</span><span>React</span><span>Flask</span><span>NLP</span>
       </div>
@@ -129,7 +255,7 @@
     </div>
   </article>
 
-  <article class="project">
+  <article class="project p-coral reveal">
     <div class="bar"></div>
     <div class="inner">
       <h3>Live Broadcast Graphics · SMT <span class="when">2024</span></h3>
@@ -140,7 +266,7 @@
     </div>
   </article>
 
-  <article class="project">
+  <article class="project p-gold reveal">
     <div class="bar"></div>
     <div class="inner">
       <h3>Crazy Pineapple OFC Solver <span class="when">In progress</span></h3>
@@ -152,7 +278,7 @@
     </div>
   </article>
 
-  <article class="project">
+  <article class="project p-green reveal">
     <div class="bar"></div>
     <div class="inner">
       <h3>Banking Security Protocol <span class="when">Spring 2025</span></h3>
@@ -163,10 +289,10 @@
       <p class="plink"><a href="https://github.com/gacaw/Crypto-Proj-2025" target="_blank" rel="noopener">Repo →</a></p>
     </div>
   </article>
- 
+
   <h2>About Me</h2>
- 
-  <article class="project">
+
+  <article class="project p-aqua reveal">
     <div class="bar"></div>
     <div class="inner">
       <!-- Running tabs: to update, just edit the text after the colon.
@@ -185,23 +311,29 @@
           <span class="val">Takita's Mudskipper</span>
         </div>
       </div>
- 
+
       <figure class="fish-photo">
-        <img src="takitasmudkipper.png" alt="Takita's Mudskipper"
+        <img src="takitasmudkipper.jpg" alt="Takita's Mudskipper"
              onerror="this.closest('.fish-photo').classList.add('empty');">
         <figcaption>Takita's Mudskipper</figcaption>
       </figure>
     </div>
   </article>
 
-
-
-
   <footer>
     <div>© 2026 Will Gaca</div>
     <div><a href="mailto:will.gaca@gmail.com">will.gaca@gmail.com</a></div>
   </footer>
 </div>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    }
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
 
 </body>
 </html>
