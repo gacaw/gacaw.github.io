@@ -6,7 +6,7 @@
 <title>Will Gaca | Software Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #120d1c;
@@ -183,6 +183,7 @@
   .fact .label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+    font-weight: 700;
     color: color-mix(in srgb, var(--aqua) 70%, var(--muted));
     white-space: nowrap;
   }
@@ -206,6 +207,55 @@
   }
   .fish-photo.empty { display: none; }
 
+  /* ---------- Fish form ---------- */
+  .fish-form { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .fish-form-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+    font-weight: 700;
+    color: color-mix(in srgb, var(--aqua) 70%, var(--muted));
+    margin-bottom: 10px;
+  }
+  .fish-form-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .fish-form input {
+    flex: 1; min-width: 180px;
+    background: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: 'Work Sans', system-ui, sans-serif;
+    font-size: 15px;
+    transition: border-color .2s ease;
+  }
+  .fish-form input::placeholder { color: color-mix(in srgb, var(--muted) 65%, transparent); }
+  .fish-form input:focus {
+    outline: none;
+    border-color: var(--aqua);
+  }
+  .fish-form button {
+    background: color-mix(in srgb, var(--aqua) 22%, var(--panel));
+    border: 1px solid color-mix(in srgb, var(--aqua) 55%, var(--line));
+    border-radius: 8px;
+    padding: 8px 14px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background .2s ease, transform .15s ease;
+  }
+  .fish-form button:hover { background: color-mix(in srgb, var(--aqua) 35%, var(--panel)); transform: translateY(-1px); }
+  .fish-form button:hover .fish-btn-icon { animation: swim .5s ease-in-out; }
+  .fish-form button:focus-visible { outline: 2px solid var(--aqua); outline-offset: 2px; }
+  .fish-form button:disabled { opacity: .6; cursor: default; transform: none; }
+  .fish-form button:disabled .fish-btn-icon { animation: none; }
+  @keyframes swim {
+    0%   { transform: translateX(0) rotate(0deg); }
+    30%  { transform: translateX(3px) rotate(-4deg); }
+    60%  { transform: translateX(-2px) rotate(3deg); }
+    100% { transform: translateX(0) rotate(0deg); }
+  }
+  .fish-status { margin-top: 10px; font-size: 14.5px; color: var(--aqua); min-height: 1.4em; }
+
   /* ---------- Footer ---------- */
   footer {
     margin-top: 64px; padding-top: 24px;
@@ -216,7 +266,7 @@
 
   /* ---------- Reduced motion ---------- */
   @media (prefers-reduced-motion: reduce) {
-    .glow, h1 { animation: none; }
+    .glow, h1, .fish-form button:hover .fish-btn-icon { animation: none; }
     .project, .fish-photo img, .header-links a::after, .reveal { transition: none; }
     .reveal { opacity: 1; transform: none; }
   }
@@ -232,7 +282,7 @@
   <header>
     <div class="eyebrow">Software Developer · RPI CS '26</div>
     <h1>Will Gaca</h1>
-    <p class="intro">CS grad from RPI. I build things in Python, C#, and React, and I've shipped code that aired live on CBS. Currently hunting for my first full-time role.</p>
+    <p class="intro">CS grad from RPI. I build things. I like cards, movies, fish, and birds.</p>
     <div class="header-links">
       <a href="mailto:will.gaca@gmail.com">will.gaca@gmail.com</a>
       <a href="https://github.com/gacaw" target="_blank" rel="noopener">GitHub</a>
@@ -313,10 +363,31 @@
       </div>
 
       <figure class="fish-photo">
-        <img src="takitasmudkipper.jpg" alt="Takita's Mudskipper"
+        <img src="takitasmudskipper.jpeg" alt="Takita's Mudskipper resting in shallow water on a mudflat"
              onerror="this.closest('.fish-photo').classList.add('empty');">
         <figcaption>Takita's Mudskipper</figcaption>
       </figure>
+
+      <!-- Fish form: replace YOUR_FORM_ID in the action URL with your Formspree form ID -->
+      <form class="fish-form" id="fish-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <label class="fish-form-label" for="fish-input">Tell me your favorite fish:</label>
+        <div class="fish-form-row">
+          <input id="fish-input" name="favorite_fish" type="text" required
+                 maxlength="100" placeholder="garden eel? barreleye? be honest">
+          <button type="submit" aria-label="Submit" title="Submit">
+            <svg class="fish-btn-icon" viewBox="0 0 64 44" width="36" height="25" aria-hidden="true" focusable="false">
+              <path d="M15 22 L3 10 Q0 22 7 22 Q0 22 3 34 Z" fill="#6fb7cc"/>
+              <path d="M30 9 Q35 0 44 4 L38 13 Z" fill="#6fb7cc"/>
+              <path d="M30 35 Q35 44 44 40 L38 31 Z" fill="#6fb7cc"/>
+              <path d="M12 22 Q26 5 44 10 Q58 15 58 22 Q58 29 44 34 Q26 39 12 22 Z" fill="#8ed0e4"/>
+              <path d="M41 9.5 Q58 15 58 22 Q58 29 44 34 Q47 21 41 9.5 Z" fill="#c4e8f4"/>
+              <circle cx="47" cy="20" r="4.5" fill="#3d6b7d"/>
+              <circle cx="45.5" cy="18.5" r="1.8" fill="#fff"/>
+            </svg>
+          </button>
+        </div>
+        <p class="fish-status" id="fish-status" role="status"></p>
+      </form>
     </div>
   </article>
 
@@ -333,6 +404,32 @@
     }
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  const fishForm = document.getElementById('fish-form');
+  const fishStatus = document.getElementById('fish-status');
+  fishForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = fishForm.querySelector('button');
+    btn.disabled = true;
+    fishStatus.textContent = 'Sending...';
+    try {
+      const res = await fetch(fishForm.action, {
+        method: 'POST',
+        body: new FormData(fishForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        fishStatus.textContent = 'Got it. Excellent taste in fish.';
+        fishForm.reset();
+      } else {
+        fishStatus.textContent = "Didn't go through. Try again?";
+        btn.disabled = false;
+      }
+    } catch {
+      fishStatus.textContent = "Didn't go through. Try again?";
+      btn.disabled = false;
+    }
+  });
 </script>
 
 </body>
