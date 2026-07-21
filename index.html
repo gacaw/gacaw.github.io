@@ -34,18 +34,14 @@
     background: var(--void);
   }
 
-  /* ---------- Fixed background image ----------
-     Uses the hi-def scan. If your file isn't named exactly
-     IMG_20250719_0002.jpg, change the filename on the next line. */
+  /* ---------- Fixed background image ---------- */
   .bg {
     position: fixed; inset: 0; z-index: -2;
-    background-image: url('IMG_20250719_0002.jpg');
+    background-image: url('IMG_20250719_0002.png');
     background-size: cover;
     background-position: center top;
-    /* pull toward the artwork's cold grays and knock back the contrast so text stays readable */
     filter: grayscale(0.55) brightness(0.42) contrast(1.05);
   }
-  /* vignette + top-down darkening so the content column always has a readable bed */
   .bg-veil {
     position: fixed; inset: 0; z-index: -1; pointer-events: none;
     background:
