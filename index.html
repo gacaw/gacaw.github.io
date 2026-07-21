@@ -34,13 +34,11 @@
     background: var(--void);
   }
 
-  /* ---------- Fixed background image ---------- */
   .bg {
     position: fixed; inset: 0; z-index: -2;
     background-image: url('IMG_20250719_0002.png');
     background-size: cover;
     background-position: center top;
-    filter: grayscale(0.55) brightness(0.42) contrast(1.05);
   }
   .bg-veil {
     position: fixed; inset: 0; z-index: -1; pointer-events: none;
@@ -258,7 +256,6 @@
 
 <div class="wrap">
   <header class="panel masthead">
-    <div class="eyebrow">Software Developer / RPI CS '26</div>
     <h1>Will <span class="tag">Gaca</span></h1>
     <p class="intro">CS grad from RPI. I like card games, movies, video games, and nature. Night Owl.</p>
     <div class="header-links">
@@ -285,8 +282,8 @@
   <article class="panel entry-panel entry reveal">
     <div class="spine"></div>
     <div class="body">
-      <h3>Live Broadcast Graphics / SMT <span class="when">2024</span></h3>
-      <p class="line">Scoring bugs, tickers, lower thirds.</p>
+      <h3>Live Broadcast Graphics @ SMT <span class="when">2024</span></h3>
+      <p class="line">Broacasting tools and score bugs.</p>
       <div class="tags">
         <span>C#</span><span>Real-time</span><span>Data viz</span>
       </div>
@@ -296,7 +293,7 @@
   <article class="panel entry-panel entry reveal">
     <div class="spine"></div>
     <div class="body">
-      <h3>Crazy Pineapple OFC Solver <span class="when">In progress</span></h3>
+      <h3>Crazy Pineapple Solver <span class="when">In progress</span></h3>
       <p class="line">Poker strategy solver. Hobby project.</p>
       <div class="tags">
         <span>React</span><span>JavaScript</span><span>Web Workers</span>
@@ -330,7 +327,7 @@
         <span class="val">World War Z <a href="https://letterboxd.com/willg003/" target="_blank" rel="noopener">Letterboxd</a></span>
       </div>
       <div class="fact">
-        <span class="label">Favorite fish:</span>
+        <span class="label">My favorite fish:</span>
         <span class="val">Takita's Mudskipper</span>
       </div>
     </div>
@@ -341,7 +338,7 @@
     </figure>
 
     <form class="fish-form" id="fish-form" action="https://formspree.io/f/mdarqrny" method="POST">
-      <label class="fish-form-label" for="fish-input">Tell me your favorite fish:</label>
+      <label class="fish-form-label" for="fish-input">Whats your favorite fish?</label>
       <div class="fish-form-row">
         <input id="fish-input" name="favorite_fish" type="text" required
                maxlength="100" placeholder="There are those who fish and those who just disturb the water">
@@ -361,10 +358,6 @@
     </form>
   </article>
 
-  <footer>
-    <div>© 2026 Will Gaca</div>
-    <div><a href="mailto:will.gaca@gmail.com">will.gaca@gmail.com</a></div>
-  </footer>
 </div>
 
 <script>
