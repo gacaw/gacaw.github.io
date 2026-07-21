@@ -6,247 +6,224 @@
 <title>Will Gaca | Software Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #120d1c;
-    --panel: #1b1329;
-    --line: #35284f;
-    --text: #e9e2f7;
-    --muted: #a294c4;
-
-    /* accent palette */
-    --violet: #8f5cf7;
-    --violet-soft: #c4b0fa;
-    --aqua: #3fd6c5;
-    --coral: #ff6f61;
-    --gold: #f6b73c;
-    --green: #5fdc8b;
+    --void: #0a0c0d;
+    --slab: rgba(18, 21, 23, 0.72);
+    --slab-solid: #121517;
+    --edge: #2a2f31;
+    --edge-bright: #3d4548;
+    --text: #b8c0c3;
+    --muted: #6b7477;
+    --arc: #7fd4e8;
+    --arc-dim: #4a8a99;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  html { scroll-behavior: smooth; }
+
   body {
-    background: var(--ink);
     color: var(--text);
-    font-family: 'Work Sans', system-ui, sans-serif;
-    font-size: 17px;
-    line-height: 1.6;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    background: var(--void);
   }
 
-  ::selection { background: var(--violet); color: #fff; }
-
-  a { color: var(--violet-soft); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  a:focus-visible { outline: 2px solid var(--violet-soft); outline-offset: 3px; border-radius: 4px; }
-
-  /* ---------- Ambient background ---------- */
-  .glow {
-    position: fixed; border-radius: 50%;
-    filter: blur(90px); opacity: .22;
-    pointer-events: none; z-index: -1;
+  /* ---------- Fixed background image ----------
+     Uses the hi-def scan. If your file isn't named exactly
+     IMG_20250719_0002.jpg, change the filename on the next line. */
+  .bg {
+    position: fixed; inset: 0; z-index: -2;
+    background-image: url('IMG_20250719_0002.jpg');
+    background-size: cover;
+    background-position: center top;
+    /* pull toward the artwork's cold grays and knock back the contrast so text stays readable */
+    filter: grayscale(0.55) brightness(0.42) contrast(1.05);
   }
-  .glow-1 {
-    width: 480px; height: 480px; top: -140px; left: -120px;
-    background: var(--violet);
-    animation: drift1 18s ease-in-out infinite alternate;
-  }
-  .glow-2 {
-    width: 420px; height: 420px; top: 40%; right: -160px;
-    background: var(--aqua);
-    animation: drift2 22s ease-in-out infinite alternate;
-  }
-  .glow-3 {
-    width: 380px; height: 380px; bottom: -120px; left: 20%;
-    background: var(--coral); opacity: .13;
-    animation: drift1 26s ease-in-out infinite alternate-reverse;
-  }
-  @keyframes drift1 {
-    from { transform: translate(0, 0) scale(1); }
-    to   { transform: translate(60px, 40px) scale(1.15); }
-  }
-  @keyframes drift2 {
-    from { transform: translate(0, 0) scale(1.1); }
-    to   { transform: translate(-70px, -50px) scale(1); }
+  /* vignette + top-down darkening so the content column always has a readable bed */
+  .bg-veil {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(10,12,13,0.70) 0%, rgba(10,12,13,0.40) 32%, rgba(10,12,13,0.68) 100%),
+      radial-gradient(125% 85% at 50% 0%, transparent 42%, rgba(10,12,13,0.80) 100%);
   }
 
-  .wrap { max-width: 680px; margin: 0 auto; padding: 72px 24px 64px; }
+  ::selection { background: var(--arc); color: #05191f; }
+
+  a { color: var(--arc); text-decoration: none; }
+  a:hover { color: #a9e6f5; }
+  a:focus-visible { outline: 1px solid var(--arc); outline-offset: 3px; }
+
+  .wrap { max-width: 660px; margin: 0 auto; padding: 88px 24px 72px; }
+
+  /* ---------- Panel: the concrete slab ---------- */
+  .panel {
+    position: relative;
+    background: var(--slab);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--edge);
+    padding: 26px 26px;
+    margin-bottom: 16px;
+  }
+  /* blueprint corner ticks */
+  .panel::before, .panel::after {
+    content: ""; position: absolute; width: 9px; height: 9px;
+    border-color: var(--arc-dim); border-style: solid; opacity: .8;
+  }
+  .panel::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+  .panel::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
 
   /* ---------- Header ---------- */
+  .masthead { padding: 34px 26px 30px; margin-bottom: 26px; }
   .eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--violet-soft); margin-bottom: 14px;
+    font-size: 11px; letter-spacing: .32em; text-transform: uppercase;
+    color: var(--arc); font-weight: 500;
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  }
+  .eyebrow::before {
+    content: ""; width: 22px; height: 1px; background: var(--arc-dim);
   }
   h1 {
-    font-family: 'Fraunces', serif;
     font-weight: 700;
-    font-size: clamp(2.4rem, 7vw, 3.4rem);
-    letter-spacing: -0.02em;
+    font-size: clamp(2.1rem, 6vw, 3rem);
+    letter-spacing: .04em;
     line-height: 1.05;
-    background: linear-gradient(100deg, var(--violet-soft), var(--violet) 45%, var(--aqua));
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: shimmer 9s ease-in-out infinite alternate;
+    color: #e4eaec;
+    text-transform: uppercase;
   }
-  @keyframes shimmer {
-    from { background-position: 0% 0; }
-    to   { background-position: 100% 0; }
+  h1 .tag { color: var(--arc); }
+  .intro { color: var(--muted); margin-top: 16px; max-width: 52ch; font-size: 14px; }
+  .header-links {
+    margin-top: 24px; display: flex; gap: 8px; flex-wrap: wrap;
+    font-size: 12px; letter-spacing: .08em;
   }
-  .intro { color: var(--muted); margin-top: 16px; max-width: 50ch; }
-  .header-links { margin-top: 24px; display: flex; gap: 22px; flex-wrap: wrap; font-weight: 600; font-size: 15.5px; }
   .header-links a {
-    position: relative; text-decoration: none;
+    border: 1px solid var(--edge); padding: 7px 13px;
+    color: var(--text);
+    transition: border-color .2s ease, color .2s ease, background .2s ease;
   }
-  .header-links a::after {
-    content: ""; position: absolute; left: 0; bottom: -3px;
-    width: 100%; height: 2px; background: var(--aqua);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform .25s ease;
+  .header-links a:hover {
+    border-color: var(--arc-dim); color: var(--arc);
+    background: rgba(127, 212, 232, 0.06);
   }
-  .header-links a:hover::after { transform: scaleX(1); }
 
-  /* ---------- Sections ---------- */
-  h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 600; font-size: 1.15rem;
-    margin: 64px 0 18px;
+  /* ---------- Section headers ---------- */
+  .section-label {
+    display: flex; align-items: baseline; gap: 12px;
+    margin: 40px 2px 16px;
+    font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
     color: var(--muted);
-    letter-spacing: .02em;
   }
+  .section-label .idx { color: var(--arc-dim); }
+  .section-label .rule { flex: 1; height: 1px; background: var(--edge); }
 
-  /* ---------- Cards ---------- */
-  .project {
-    --accent: var(--violet);
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    display: flex;
-    overflow: hidden;
-    margin-bottom: 14px;
-    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  /* ---------- Project entries ---------- */
+  .entry { display: flex; gap: 0; }
+  .entry .spine {
+    width: 3px; flex-shrink: 0; background: var(--edge-bright);
+    transition: background .25s ease;
   }
-  .project:hover {
-    transform: translateY(-3px);
-    border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
-    box-shadow: 0 8px 32px -12px color-mix(in srgb, var(--accent) 45%, transparent);
-  }
-  .p-violet { --accent: var(--violet); }
-  .p-coral  { --accent: var(--coral); }
-  .p-gold   { --accent: var(--gold); }
-  .p-green  { --accent: var(--green); }
-  .p-aqua   { --accent: var(--aqua); }
-
-  .bar {
-    width: 5px; flex-shrink: 0;
-    background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 55%, var(--ink)));
-  }
-  .project .inner { padding: 18px 20px; flex: 1; min-width: 0; }
-  .project h3 {
-    font-family: 'Fraunces', serif;
-    font-weight: 600; font-size: 1.2rem;
+  .entry:hover .spine { background: var(--arc-dim); }
+  .entry .body { flex: 1; min-width: 0; padding-left: 22px; }
+  .entry h3 {
+    font-weight: 700; font-size: 1.02rem; letter-spacing: .02em;
+    color: #d4dbdd;
     display: flex; align-items: baseline; justify-content: space-between; gap: 14px; flex-wrap: wrap;
   }
-  .project h3 .when {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; letter-spacing: .08em; color: var(--muted); font-weight: 400;
+  .entry h3 .when {
+    font-size: 11px; letter-spacing: .1em; color: var(--muted); font-weight: 400;
   }
-  .project .line { color: var(--muted); font-size: 15.5px; margin-top: 4px; }
-  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+  .entry .line { color: var(--muted); font-size: 13.5px; margin-top: 6px; line-height: 1.6; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
   .tags span {
-    font-family: 'JetBrains Mono', monospace; font-size: 12px;
-    padding: 4px 11px; border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line));
-    color: color-mix(in srgb, var(--accent) 80%, var(--text));
+    font-size: 11px; letter-spacing: .05em;
+    padding: 3px 9px;
+    border: 1px solid var(--edge);
+    color: var(--muted);
   }
-  .plink { margin-top: 12px; font-size: 14.5px; font-weight: 600; }
-  .plink a { color: color-mix(in srgb, var(--accent) 75%, var(--text)); }
-  .plink .note { color: var(--muted); font-weight: 400; }
+  .plink { margin-top: 14px; font-size: 12.5px; letter-spacing: .06em; }
+  .plink .note { color: var(--muted); }
+
+  .panel.entry-panel { padding: 22px 24px; }
 
   /* ---------- Scroll reveal ---------- */
-  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; }
   .reveal.in { opacity: 1; transform: none; }
 
   /* ---------- About ---------- */
   .facts { display: flex; flex-direction: column; }
   .fact {
-    display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--edge);
   }
-  .fact:first-child { padding-top: 4px; }
+  .fact:first-child { padding-top: 2px; }
   .fact:last-child { border-bottom: none; }
   .fact .label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+    font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
     font-weight: 700;
-    color: color-mix(in srgb, var(--aqua) 70%, var(--muted));
+    color: var(--arc-dim);
     white-space: nowrap;
   }
-  .fact .val { font-size: 16px; }
+  .fact .val { font-size: 14px; color: var(--text); }
 
-  .fish-photo { margin-top: 18px; }
+  .fish-photo { margin-top: 20px; position: relative; }
   .fish-photo img {
     display: block; width: 100%;
-    border-radius: 8px;
-    border: 1px solid var(--line);
-    transition: transform .3s ease, border-color .3s ease;
+    border: 1px solid var(--edge);
+    filter: grayscale(0.3) contrast(1.02);
+    transition: filter .3s ease, border-color .3s ease;
   }
   .fish-photo img:hover {
-    transform: scale(1.015);
-    border-color: color-mix(in srgb, var(--aqua) 50%, var(--line));
+    filter: grayscale(0) contrast(1.05);
+    border-color: var(--arc-dim);
   }
   .fish-photo figcaption {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; letter-spacing: .08em;
-    color: var(--muted); margin-top: 8px;
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted); margin-top: 10px;
   }
   .fish-photo.empty { display: none; }
 
   /* ---------- Fish form ---------- */
-  .fish-form { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .fish-form { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--edge); }
   .fish-form-label {
     display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
-    font-weight: 700;
-    color: color-mix(in srgb, var(--aqua) 70%, var(--muted));
-    margin-bottom: 10px;
+    font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+    font-weight: 700; color: var(--arc-dim);
+    margin-bottom: 12px;
   }
-  .fish-form-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .fish-form-row { display: flex; gap: 0; flex-wrap: wrap; border: 1px solid var(--edge); }
+  .fish-form-row:focus-within { border-color: var(--arc-dim); }
   .fish-form input {
     flex: 1; min-width: 180px;
-    background: var(--ink);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 10px 14px;
+    background: rgba(10, 12, 13, 0.6);
+    border: none;
+    padding: 12px 15px;
     color: var(--text);
-    font-family: 'Work Sans', system-ui, sans-serif;
-    font-size: 15px;
-    transition: border-color .2s ease;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
   }
-  .fish-form input::placeholder { color: color-mix(in srgb, var(--muted) 65%, transparent); }
-  .fish-form input:focus {
-    outline: none;
-    border-color: var(--aqua);
-  }
+  .fish-form input::placeholder { color: var(--muted); }
+  .fish-form input:focus { outline: none; }
   .fish-form button {
-    background: color-mix(in srgb, var(--aqua) 22%, var(--panel));
-    border: 1px solid color-mix(in srgb, var(--aqua) 55%, var(--line));
-    border-radius: 8px;
-    padding: 8px 14px;
+    background: rgba(127, 212, 232, 0.08);
+    border: none;
+    border-left: 1px solid var(--edge);
+    padding: 8px 18px;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer;
-    transition: background .2s ease, transform .15s ease;
+    transition: background .2s ease;
   }
-  .fish-form button:hover { background: color-mix(in srgb, var(--aqua) 35%, var(--panel)); transform: translateY(-1px); }
+  .fish-form button:hover { background: rgba(127, 212, 232, 0.16); }
   .fish-form button:hover .fish-btn-icon { animation: swim .5s ease-in-out; }
-  .fish-form button:focus-visible { outline: 2px solid var(--aqua); outline-offset: 2px; }
-  .fish-form button:disabled { opacity: .6; cursor: default; transform: none; }
+  .fish-form button:focus-visible { outline: 1px solid var(--arc); outline-offset: -1px; }
+  .fish-form button:disabled { opacity: .5; cursor: default; }
   .fish-form button:disabled .fish-btn-icon { animation: none; }
   @keyframes swim {
     0%   { transform: translateX(0) rotate(0deg); }
@@ -254,35 +231,40 @@
     60%  { transform: translateX(-2px) rotate(3deg); }
     100% { transform: translateX(0) rotate(0deg); }
   }
-  .fish-status { margin-top: 10px; font-size: 14.5px; color: var(--aqua); min-height: 1.4em; }
+  .fish-status {
+    margin-top: 12px; font-size: 12px; letter-spacing: .06em;
+    color: var(--arc); min-height: 1.4em;
+  }
 
   /* ---------- Footer ---------- */
   footer {
-    margin-top: 64px; padding-top: 24px;
-    border-top: 1px solid var(--line);
-    color: var(--muted); font-size: 14px;
+    margin-top: 40px; padding: 20px 26px;
+    border: 1px solid var(--edge);
+    background: var(--slab);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    color: var(--muted); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
     display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
   }
 
   /* ---------- Reduced motion ---------- */
   @media (prefers-reduced-motion: reduce) {
-    .glow, h1, .fish-form button:hover .fish-btn-icon { animation: none; }
-    .project, .fish-photo img, .header-links a::after, .reveal { transition: none; }
+    html { scroll-behavior: auto; }
+    .fish-form button:hover .fish-btn-icon { animation: none; }
+    .entry .spine, .fish-photo img, .header-links a, .reveal { transition: none; }
     .reveal { opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="glow glow-1"></div>
-<div class="glow glow-2"></div>
-<div class="glow glow-3"></div>
+<div class="bg"></div>
+<div class="bg-veil"></div>
 
 <div class="wrap">
-  <header>
-    <div class="eyebrow">Software Developer · RPI CS '26</div>
-    <h1>Will Gaca</h1>
-    <p class="intro">CS grad from RPI. I like card games, movies, and nature.</p>
+  <header class="panel masthead">
+    <div class="eyebrow">Software Developer / RPI CS '26</div>
+    <h1>Will <span class="tag">Gaca</span></h1>
+    <p class="intro">CS grad from RPI. I like card games, movies, video games, and nature.</p>
     <div class="header-links">
       <a href="mailto:will.gaca@gmail.com">will.gaca@gmail.com</a>
       <a href="https://github.com/gacaw" target="_blank" rel="noopener">GitHub</a>
@@ -290,37 +272,37 @@
     </div>
   </header>
 
-  <h2>Projects</h2>
+  <div class="section-label"><span class="idx">01</span><span>Projects</span><span class="rule"></span></div>
 
-  <article class="project p-violet reveal">
-    <div class="bar"></div>
-    <div class="inner">
-      <h3>Solverah <span class="when">2025 – 2026</span></h3>
+  <article class="panel entry-panel entry reveal">
+    <div class="spine"></div>
+    <div class="body">
+      <h3>Solverah <span class="when">2025–2026</span></h3>
       <p class="line">AI career-matching platform. Full-stack developer.</p>
       <div class="tags">
         <span>Python</span><span>React</span><span>Flask</span><span>NLP</span>
       </div>
-      <p class="plink"><a href="https://solverah.com" target="_blank" rel="noopener">Solverah →</a></p>
+      <p class="plink"><a href="https://solverah.com" target="_blank" rel="noopener">solverah.com →</a></p>
       <p class="plink"><span class="note">Private repo. Code available on request.</span></p>
     </div>
   </article>
 
-  <article class="project p-coral reveal">
-    <div class="bar"></div>
-    <div class="inner">
-      <h3>Live Broadcast Graphics · SMT <span class="when">2024</span></h3>
-      <p class="line">Production C# aired live on CBS. Scoring bugs, tickers, lower thirds.</p>
+  <article class="panel entry-panel entry reveal">
+    <div class="spine"></div>
+    <div class="body">
+      <h3>Live Broadcast Graphics / SMT <span class="when">2024</span></h3>
+      <p class="line">Scoring bugs, tickers, lower thirds.</p>
       <div class="tags">
-        <span>C#</span><span>Real-time</span><span>Data visualization</span>
+        <span>C#</span><span>Real-time</span><span>Data viz</span>
       </div>
     </div>
   </article>
 
-  <article class="project p-gold reveal">
-    <div class="bar"></div>
-    <div class="inner">
+  <article class="panel entry-panel entry reveal">
+    <div class="spine"></div>
+    <div class="body">
       <h3>Crazy Pineapple OFC Solver <span class="when">In progress</span></h3>
-      <p class="line">Poker strategy engine with Monte Carlo simulation across parallel Web Workers. Hobby project.</p>
+      <p class="line">Poker strategy solver. Hobby project.</p>
       <div class="tags">
         <span>React</span><span>JavaScript</span><span>Web Workers</span>
       </div>
@@ -328,11 +310,11 @@
     </div>
   </article>
 
-  <article class="project p-green reveal">
-    <div class="bar"></div>
-    <div class="inner">
+  <article class="panel entry-panel entry reveal">
+    <div class="spine"></div>
+    <div class="body">
       <h3>Banking Security Protocol <span class="when">Spring 2025</span></h3>
-      <p class="line">SSH/SSL implementation with crypto primitives from scratch. RPI course project.</p>
+      <p class="line">SSH/SSL implementation with crypto primitives. RPI course project.</p>
       <div class="tags">
         <span>C</span><span>RSA / DES</span><span>Pen testing</span>
       </div>
@@ -340,54 +322,48 @@
     </div>
   </article>
 
-  <h2>About Me</h2>
+  <div class="section-label"><span class="idx">02</span><span>About</span><span class="rule"></span></div>
 
-  <article class="project p-aqua reveal">
-    <div class="bar"></div>
-    <div class="inner">
-      <!-- Running tabs: to update, just edit the text after the colon.
-           To add a new line, copy one of the <div class="fact"> blocks. -->
-      <div class="facts">
-        <div class="fact">
-          <span class="label">Currently reading:</span>
-          <span class="val">Phil Gordon's Little Gold Book</span>
-        </div>
-        <div class="fact">
-          <span class="label">Last movie watched:</span>
-          <span class="val">World War Z <a href="https://letterboxd.com/willg003/" target="_blank" rel="noopener">Letterboxd</a></span>
-        </div>
-        <div class="fact">
-          <span class="label">Favorite fish:</span>
-          <span class="val">Takita's Mudskipper</span>
-        </div>
+  <article class="panel reveal">
+    <div class="facts">
+      <div class="fact">
+        <span class="label">Currently reading:</span>
+        <span class="val">Phil Gordon's Little Gold Book</span>
       </div>
-
-      <figure class="fish-photo">
-        <img src="takitasmudskipper.jpeg" alt="Takita's Mudskipper resting in shallow water on a mudflat"
-             onerror="this.closest('.fish-photo').classList.add('empty');">
-      </figure>
-
-      <!-- Fish form: replace YOUR_FORM_ID in the action URL with your Formspree form ID -->
-      <form class="fish-form" id="fish-form" action="https://formspree.io/f/mdarqrny" method="POST">
-        <label class="fish-form-label" for="fish-input">Tell me your favorite fish:</label>
-        <div class="fish-form-row">
-          <input id="fish-input" name="favorite_fish" type="text" required
-                 maxlength="100" placeholder="There are people that fish and those who just disturb the water">
-          <button type="submit" aria-label="Submit" title="Submit">
-            <svg class="fish-btn-icon" viewBox="0 0 64 44" width="36" height="25" aria-hidden="true" focusable="false">
-              <path d="M15 22 L3 10 Q0 22 7 22 Q0 22 3 34 Z" fill="#6fb7cc"/>
-              <path d="M30 9 Q35 0 44 4 L38 13 Z" fill="#6fb7cc"/>
-              <path d="M30 35 Q35 44 44 40 L38 31 Z" fill="#6fb7cc"/>
-              <path d="M12 22 Q26 5 44 10 Q58 15 58 22 Q58 29 44 34 Q26 39 12 22 Z" fill="#8ed0e4"/>
-              <path d="M41 9.5 Q58 15 58 22 Q58 29 44 34 Q47 21 41 9.5 Z" fill="#c4e8f4"/>
-              <circle cx="47" cy="20" r="4.5" fill="#3d6b7d"/>
-              <circle cx="45.5" cy="18.5" r="1.8" fill="#fff"/>
-            </svg>
-          </button>
-        </div>
-        <p class="fish-status" id="fish-status" role="status"></p>
-      </form>
+      <div class="fact">
+        <span class="label">Last movie watched:</span>
+        <span class="val">World War Z <a href="https://letterboxd.com/willg003/" target="_blank" rel="noopener">Letterboxd</a></span>
+      </div>
+      <div class="fact">
+        <span class="label">Favorite fish:</span>
+        <span class="val">Takita's Mudskipper</span>
+      </div>
     </div>
+
+    <figure class="fish-photo">
+      <img src="takitasmudskipper.jpeg" alt="Takita's Mudskipper resting in shallow water on a mudflat"
+           onerror="this.closest('.fish-photo').classList.add('empty');">
+    </figure>
+
+    <form class="fish-form" id="fish-form" action="https://formspree.io/f/mdarqrny" method="POST">
+      <label class="fish-form-label" for="fish-input">Tell me your favorite fish:</label>
+      <div class="fish-form-row">
+        <input id="fish-input" name="favorite_fish" type="text" required
+               maxlength="100" placeholder="There are those who fish and those who just disturb the water">
+        <button type="submit" aria-label="Submit" title="Submit">
+          <svg class="fish-btn-icon" viewBox="0 0 64 44" width="34" height="23" aria-hidden="true" focusable="false">
+            <path d="M15 22 L3 10 Q0 22 7 22 Q0 22 3 34 Z" fill="#4a8a99"/>
+            <path d="M30 9 Q35 0 44 4 L38 13 Z" fill="#4a8a99"/>
+            <path d="M30 35 Q35 44 44 40 L38 31 Z" fill="#4a8a99"/>
+            <path d="M12 22 Q26 5 44 10 Q58 15 58 22 Q58 29 44 34 Q26 39 12 22 Z" fill="#7fd4e8"/>
+            <path d="M41 9.5 Q58 15 58 22 Q58 29 44 34 Q47 21 41 9.5 Z" fill="#a9e6f5"/>
+            <circle cx="47" cy="20" r="4.5" fill="#0a2a33"/>
+            <circle cx="45.5" cy="18.5" r="1.8" fill="#e4eaec"/>
+          </svg>
+        </button>
+      </div>
+      <p class="fish-status" id="fish-status" role="status"></p>
+    </form>
   </article>
 
   <footer>
@@ -421,11 +397,11 @@
         fishStatus.textContent = 'nice fish';
         fishForm.reset();
       } else {
-        fishStatus.textContent = "Try again?";
+        fishStatus.textContent = 'Try again?';
         btn.disabled = false;
       }
     } catch {
-      fishStatus.textContent = "Try again?";
+      fishStatus.textContent = 'Try again?';
       btn.disabled = false;
     }
   });
