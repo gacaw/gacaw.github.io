@@ -21,7 +21,6 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -37,35 +36,47 @@
   .bg {
     position: fixed; inset: 0; z-index: -2;
     background-image: url('IMG_20250719_0002.png');
-    background-size: cover;
-    background-position: center top;
+    background-size: cover; background-position: center top;
   }
   .bg-veil {
     position: fixed; inset: 0; z-index: -1; pointer-events: none;
     background:
-      linear-gradient(180deg, rgba(10,12,13,0.70) 0%, rgba(10,12,13,0.40) 32%, rgba(10,12,13,0.68) 100%),
+      linear-gradient(180deg, rgba(10,12,13,0.68) 0%, rgba(10,12,13,0.40) 32%, rgba(10,12,13,0.66) 100%),
       radial-gradient(125% 85% at 50% 0%, transparent 42%, rgba(10,12,13,0.80) 100%);
   }
 
   ::selection { background: var(--arc); color: #05191f; }
-
   a { color: var(--arc); text-decoration: none; }
   a:hover { color: #a9e6f5; }
   a:focus-visible { outline: 1px solid var(--arc); outline-offset: 3px; }
 
-  .wrap { max-width: 660px; margin: 0 auto; padding: 88px 24px 72px; }
+  /* ============ PAGE GRID ============ */
+  .wrap {
+    max-width: 1180px; margin: 0 auto; padding: 40px 26px 64px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    grid-template-areas:
+      "head head"
+      "main side";
+    gap: 20px;
+    align-items: start;
+  }
+  .masthead { grid-area: head; }
+  .col-main { grid-area: main; min-width: 0; }
+  .col-side { grid-area: side; min-width: 0;
+    /* sidebar sticks while you scroll the taller main column */
+    position: sticky; top: 24px;
+  }
 
-  /* ---------- Panel: the concrete slab ---------- */
+  /* ============ PANEL ============ */
   .panel {
     position: relative;
     background: var(--slab);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     border: 1px solid var(--edge);
-    padding: 26px 26px;
-    margin-bottom: 16px;
+    padding: 22px 24px;
+    margin-bottom: 20px;
   }
-  /* blueprint corner ticks */
   .panel::before, .panel::after {
     content: ""; position: absolute; width: 9px; height: 9px;
     border-color: var(--arc-dim); border-style: solid; opacity: .8;
@@ -73,178 +84,156 @@
   .panel::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
   .panel::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
 
-  /* ---------- Header ---------- */
-  .masthead { padding: 34px 26px 30px; margin-bottom: 26px; }
+  /* little header bar inside a box (like the STARS / BLOG headers) */
+  .box-head {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--arc); font-weight: 700;
+    padding-bottom: 12px; margin-bottom: 14px;
+    border-bottom: 1px solid var(--edge);
+  }
+  .box-head .moon { color: var(--arc-dim); }
+  .box-head .rule { flex: 1; }
+
+  /* ============ MASTHEAD ============ */
+  .masthead.panel { padding: 30px 30px 26px; margin-bottom: 0; }
   .eyebrow {
-    font-size: 11px; letter-spacing: .32em; text-transform: uppercase;
-    color: var(--arc); font-weight: 500;
-    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--arc);
+    display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
   }
-  .eyebrow::before {
-    content: ""; width: 22px; height: 1px; background: var(--arc-dim);
-  }
+  .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--arc-dim); }
   h1 {
-    font-weight: 700;
-    font-size: clamp(2.1rem, 6vw, 3rem);
-    letter-spacing: .04em;
-    line-height: 1.05;
-    color: #e4eaec;
-    text-transform: uppercase;
+    font-weight: 700; font-size: clamp(2.1rem, 6vw, 3.2rem);
+    letter-spacing: .04em; line-height: 1.03; color: #e4eaec; text-transform: uppercase;
   }
   h1 .tag { color: var(--arc); }
-  .intro { color: var(--muted); margin-top: 16px; max-width: 52ch; font-size: 14px; }
-  .header-links {
-    margin-top: 24px; display: flex; gap: 8px; flex-wrap: wrap;
-    font-size: 12px; letter-spacing: .08em;
-  }
+  .intro { color: var(--muted); margin-top: 16px; max-width: 60ch; font-size: 14px; }
+  .header-links { margin-top: 22px; display: flex; gap: 8px; flex-wrap: wrap; font-size: 12px; letter-spacing: .08em; }
   .header-links a {
-    border: 1px solid var(--edge); padding: 7px 13px;
-    color: var(--text);
-    transition: border-color .2s ease, color .2s ease, background .2s ease;
+    border: 1px solid var(--edge); padding: 7px 13px; color: var(--text);
+    transition: border-color .2s, color .2s, background .2s;
   }
-  .header-links a:hover {
-    border-color: var(--arc-dim); color: var(--arc);
-    background: rgba(127, 212, 232, 0.06);
-  }
+  .header-links a:hover { border-color: var(--arc-dim); color: var(--arc); background: rgba(127,212,232,0.06); }
 
-  /* ---------- Section headers ---------- */
+  /* ============ SECTION LABEL ============ */
   .section-label {
-    display: flex; align-items: baseline; gap: 12px;
-    margin: 40px 2px 16px;
-    font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
-    color: var(--muted);
+    display: flex; align-items: baseline; gap: 12px; margin: 4px 2px 16px;
+    font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted);
   }
   .section-label .idx { color: var(--arc-dim); }
   .section-label .rule { flex: 1; height: 1px; background: var(--edge); }
 
-  /* ---------- Project entries ---------- */
+  /* ============ PROJECT ENTRIES ============ */
   .entry { display: flex; gap: 0; }
-  .entry .spine {
-    width: 3px; flex-shrink: 0; background: var(--edge-bright);
-    transition: background .25s ease;
-  }
+  .entry .spine { width: 3px; flex-shrink: 0; background: var(--edge-bright); transition: background .25s; }
   .entry:hover .spine { background: var(--arc-dim); }
-  .entry .body { flex: 1; min-width: 0; padding-left: 22px; }
+  .entry .body { flex: 1; min-width: 0; padding-left: 20px; }
   .entry h3 {
-    font-weight: 700; font-size: 1.02rem; letter-spacing: .02em;
-    color: #d4dbdd;
+    font-weight: 700; font-size: 1.02rem; letter-spacing: .02em; color: #d4dbdd;
     display: flex; align-items: baseline; justify-content: space-between; gap: 14px; flex-wrap: wrap;
   }
-  .entry h3 .when {
-    font-size: 11px; letter-spacing: .1em; color: var(--muted); font-weight: 400;
-  }
+  .entry h3 .when { font-size: 11px; letter-spacing: .1em; color: var(--muted); font-weight: 400; }
   .entry .line { color: var(--muted); font-size: 13.5px; margin-top: 6px; line-height: 1.6; }
   .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
-  .tags span {
-    font-size: 11px; letter-spacing: .05em;
-    padding: 3px 9px;
-    border: 1px solid var(--edge);
-    color: var(--muted);
-  }
+  .tags span { font-size: 11px; letter-spacing: .05em; padding: 3px 9px; border: 1px solid var(--edge); color: var(--muted); }
   .plink { margin-top: 14px; font-size: 12.5px; letter-spacing: .06em; }
   .plink .note { color: var(--muted); }
 
-  .panel.entry-panel { padding: 22px 24px; }
+  /* project entries stacked in one panel, divided like the facts list */
+  .entries-panel .entry { padding: 18px 0; border-bottom: 1px solid var(--edge); }
+  .entries-panel .entry:first-child { padding-top: 2px; }
+  .entries-panel .entry:last-child { border-bottom: none; padding-bottom: 2px; }
 
-  /* ---------- Scroll reveal ---------- */
-  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; }
+  /* ============ REVEAL ============ */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s, transform .55s; }
   .reveal.in { opacity: 1; transform: none; }
 
-  /* ---------- About ---------- */
+  /* ============ ABOUT / FACTS ============ */
+  .bio { font-size: 14px; color: var(--text); max-width: 68ch; }
+
   .facts { display: flex; flex-direction: column; }
-  .fact {
-    display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
-    padding: 13px 0;
-    border-bottom: 1px solid var(--edge);
-  }
+  .fact { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--edge); }
   .fact:first-child { padding-top: 2px; }
   .fact:last-child { border-bottom: none; }
-  .fact .label {
-    font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
-    font-weight: 700;
-    color: var(--arc-dim);
-    white-space: nowrap;
-  }
-  .fact .val { font-size: 14px; color: var(--text); }
+  .fact .label { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 700; color: var(--arc-dim); white-space: nowrap; }
+  .fact .val { font-size: 13.5px; color: var(--text); }
 
-  .fish-photo { margin-top: 20px; position: relative; }
-  .fish-photo img {
-    display: block; width: 100%;
-    border: 1px solid var(--edge);
-    filter: grayscale(0.3) contrast(1.02);
-    transition: filter .3s ease, border-color .3s ease;
+  /* ============ SUGGESTION FORMS (fish / movie) ============ */
+  .suggest-form { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--edge); }
+  .suggest-form-label { display: block; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 700; color: var(--arc-dim); margin-bottom: 12px; }
+  .suggest-form-row { display: flex; flex-wrap: wrap; border: 1px solid var(--edge); }
+  .suggest-form-row:focus-within { border-color: var(--arc-dim); }
+  .suggest-form input {
+    flex: 1; min-width: 150px; background: rgba(10,12,13,0.6); border: none; padding: 12px 15px;
+    color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
   }
-  .fish-photo img:hover {
-    filter: grayscale(0) contrast(1.05);
-    border-color: var(--arc-dim);
+  .suggest-form input::placeholder { color: var(--muted); }
+  .suggest-form input:focus { outline: none; }
+  .suggest-form button {
+    background: rgba(127,212,232,0.08); border: none; border-left: 1px solid var(--edge);
+    padding: 8px 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s;
   }
-  .fish-photo figcaption {
-    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--muted); margin-top: 10px;
-  }
-  .fish-photo.empty { display: none; }
+  .suggest-form button:hover { background: rgba(127,212,232,0.16); }
+  .suggest-form button:hover .suggest-btn-icon { animation: wiggle .5s ease-in-out; }
+  .suggest-form button:focus-visible { outline: 1px solid var(--arc); outline-offset: -1px; }
+  .suggest-form button:disabled { opacity: .5; cursor: default; }
+  .suggest-form button:disabled .suggest-btn-icon { animation: none; }
+  @keyframes wiggle { 0%{transform:translateX(0) rotate(0)} 30%{transform:translateX(3px) rotate(-4deg)} 60%{transform:translateX(-2px) rotate(3deg)} 100%{transform:translateX(0) rotate(0)} }
+  .suggest-status { margin-top: 12px; font-size: 12px; letter-spacing: .06em; color: var(--arc); min-height: 1.4em; }
 
-  /* ---------- Fish form ---------- */
-  .fish-form { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--edge); }
-  .fish-form-label {
-    display: block;
-    font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
-    font-weight: 700; color: var(--arc-dim);
-    margin-bottom: 12px;
+  /* ============ SIDEBAR BITS ============ */
+  .navlist { display: flex; flex-direction: column; gap: 2px; }
+  .navlist a {
+    display: flex; align-items: center; gap: 9px; padding: 6px 4px; color: var(--text); font-size: 13px;
+    border-bottom: 1px dashed transparent; transition: color .15s, border-color .15s;
   }
-  .fish-form-row { display: flex; gap: 0; flex-wrap: wrap; border: 1px solid var(--edge); }
-  .fish-form-row:focus-within { border-color: var(--arc-dim); }
-  .fish-form input {
-    flex: 1; min-width: 180px;
-    background: rgba(10, 12, 13, 0.6);
-    border: none;
-    padding: 12px 15px;
-    color: var(--text);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13.5px;
-  }
-  .fish-form input::placeholder { color: var(--muted); }
-  .fish-form input:focus { outline: none; }
-  .fish-form button {
-    background: rgba(127, 212, 232, 0.08);
-    border: none;
-    border-left: 1px solid var(--edge);
-    padding: 8px 18px;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    transition: background .2s ease;
-  }
-  .fish-form button:hover { background: rgba(127, 212, 232, 0.16); }
-  .fish-form button:hover .fish-btn-icon { animation: swim .5s ease-in-out; }
-  .fish-form button:focus-visible { outline: 1px solid var(--arc); outline-offset: -1px; }
-  .fish-form button:disabled { opacity: .5; cursor: default; }
-  .fish-form button:disabled .fish-btn-icon { animation: none; }
-  @keyframes swim {
-    0%   { transform: translateX(0) rotate(0deg); }
-    30%  { transform: translateX(3px) rotate(-4deg); }
-    60%  { transform: translateX(-2px) rotate(3deg); }
-    100% { transform: translateX(0) rotate(0deg); }
-  }
-  .fish-status {
-    margin-top: 12px; font-size: 12px; letter-spacing: .06em;
-    color: var(--arc); min-height: 1.4em;
-  }
+  .navlist a::before { content: "\2606"; color: var(--arc-dim); font-size: 12px; }
+  .navlist a:hover { color: var(--arc); border-bottom-color: var(--arc-dim); }
 
-  /* ---------- Footer ---------- */
+  .status-box { display: block; text-align: center; text-decoration: none; }
+  .status-box .online {
+    font-size: 1.5rem; font-weight: 700; letter-spacing: .06em; color: var(--arc);
+    text-transform: uppercase; text-shadow: 0 0 14px rgba(127,212,232,0.45);
+  }
+  .status-box .online .live { display: inline-block; width: 9px; height: 9px; background: var(--arc); border-radius: 50%; margin-right: 8px; vertical-align: middle; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.25} }
+  .status-box .sub { font-size: 11px; letter-spacing: .1em; color: var(--muted); margin-top: 6px; text-transform: uppercase; }
+  .status-box[data-status="idle"] .live { background: #f2b93d; }
+  .status-box[data-status="dnd"] .live { background: #ed6a6a; }
+  .status-box[data-status="offline"] .live { background: var(--muted); animation: none; }
+
+  .fact-line { font-size: 13.5px; color: var(--text); }
+  .cover-img { display: block; width: 100%; margin-top: 14px; border: 1px solid var(--edge); filter: grayscale(0.3) contrast(1.02); transition: filter .3s, border-color .3s; }
+  .cover-img:hover { filter: grayscale(0) contrast(1.05); border-color: var(--arc-dim); }
+
+  .music-box .now-row { display: flex; gap: 12px; align-items: center; }
+  .music-box .thumb { width: 46px; height: 46px; flex-shrink: 0; border: 1px solid var(--edge); background: var(--slab-solid); display: flex; align-items: center; justify-content: center; color: var(--arc-dim); }
+  .music-box .meta { min-width: 0; }
+  .music-box .t { font-size: 13px; color: var(--text); }
+  .music-box .a { font-size: 12px; color: var(--muted); }
+  .music-box .when { font-size: 10.5px; letter-spacing: .08em; color: var(--muted); margin-top: 8px; text-transform: uppercase; }
+
   footer {
-    margin-top: 40px; padding: 20px 26px;
-    border: 1px solid var(--edge);
-    background: var(--slab);
-    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    grid-column: 1 / -1;
+    margin-top: 8px; padding: 18px 24px; border: 1px solid var(--edge);
+    background: var(--slab); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     color: var(--muted); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
     display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
   }
 
-  /* ---------- Reduced motion ---------- */
+  /* ============ RESPONSIVE: collapse to single column ============ */
+  @media (max-width: 860px) {
+    .wrap {
+      grid-template-columns: 1fr;
+      grid-template-areas: "head" "main" "side";
+    }
+    .col-side { position: static; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .fish-form button:hover .fish-btn-icon { animation: none; }
-    .entry .spine, .fish-photo img, .header-links a, .reveal { transition: none; }
+    .suggest-form button:hover .suggest-btn-icon, .status-box .online .live { animation: none; }
+    .entry .spine, .cover-img, .header-links a, .reveal, .navlist a { transition: none; }
     .reveal { opacity: 1; transform: none; }
   }
 </style>
@@ -254,109 +243,174 @@
 <div class="bg"></div>
 <div class="bg-veil"></div>
 
-<div class="wrap">
-  <header class="panel masthead">
+<div class="wrap" id="top">
+
+  <header class="masthead panel">
+    <div class="eyebrow">Software Developer · RPI CS '26</div>
     <h1>Will <span class="tag">Gaca</span></h1>
-    <p class="intro">CS grad from RPI. I like card games, movies, video games, and nature. Night Owl.</p>
+    <p class="intro">CS grad from RPI. I like card games, movies, video games, and nature. Night owl.</p>
     <div class="header-links">
-      <a href="mailto:will.gaca@gmail.com">will.gaca@gmail.com</a>
-      <a href="https://www.linkedin.com/in/will-gaca-8ab82824a/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </header>
 
-  <div class="section-label"><span class="idx">01</span><span>Projects</span><span class="rule"></span></div>
+  <!-- ============ MAIN COLUMN ============ -->
+  <main class="col-main">
 
-  <article class="panel entry-panel entry reveal">
-    <div class="spine"></div>
-    <div class="body">
-      <h3>Solverah <span class="when">2025–2026</span></h3>
-      <p class="line">AI career-matching platform. Full-stack developer.</p>
-      <div class="tags">
-        <span>Python</span><span>React</span><span>Flask</span><span>NLP</span>
+    <div class="section-label"><span class="idx">01</span><span>About Me</span><span class="rule"></span></div>
+
+    <article class="panel reveal">
+      <p class="bio">
+        coming soon...
+      </p>
+    </article>
+
+    <div class="section-label"><span class="idx">02</span><span>Projects</span><span class="rule"></span></div>
+
+    <article class="panel entries-panel reveal">
+      <div class="entry">
+        <div class="spine"></div>
+        <div class="body">
+          <h3>Solverah <span class="when">2025–2026</span></h3>
+          <p class="line">AI career-matching platform. Full-stack developer.</p>
+          <div class="tags"><span>Python</span><span>React</span><span>Flask</span><span>NLP</span></div>
+          <p class="plink"><a href="https://solverah.com" target="_blank" rel="noopener">solverah.com →</a></p>
+          <p class="plink"><span class="note">Private repo. Code available on request.</span></p>
+        </div>
       </div>
-      <p class="plink"><a href="https://solverah.com" target="_blank" rel="noopener">solverah.com →</a></p>
-      <p class="plink"><span class="note">Private repo. Code available on request.</span></p>
+
+      <div class="entry">
+        <div class="spine"></div>
+        <div class="body">
+          <h3>Live Broadcast Graphics @ SMT <span class="when">2024</span></h3>
+          <p class="line">Broadcasting tools and score bugs.</p>
+          <div class="tags"><span>C#</span><span>Real-time</span><span>Data viz</span></div>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="spine"></div>
+        <div class="body">
+          <h3>Crazy Pineapple Solver <span class="when">In progress</span></h3>
+          <p class="line">Poker strategy solver. Hobby project.</p>
+          <div class="tags"><span>React</span><span>JavaScript</span><span>Web Workers</span></div>
+          <p class="plink"><a href="https://github.com/gacaw/pineapple-solver" target="_blank" rel="noopener">Repo →</a></p>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="spine"></div>
+        <div class="body">
+          <h3>Banking Security Protocol <span class="when">Spring 2025</span></h3>
+          <p class="line">SSH/SSL implementation with crypto primitives. RPI course project.</p>
+          <div class="tags"><span>C</span><span>RSA / DES</span><span>Pen testing</span></div>
+          <p class="plink"><a href="https://github.com/gacaw/Crypto-Proj-2025" target="_blank" rel="noopener">Repo →</a></p>
+        </div>
+      </div>
+    </article>
+
+    <div class="section-label"><span class="idx">03</span><span>Now</span><span class="rule"></span></div>
+
+    <article class="panel reveal">
+      <!-- Running tabs: edit the text after the colon. Copy a .fact block to add a line. -->
+      <div class="facts">
+        <div class="fact">
+          <span class="label">Currently reading:</span>
+          <span class="val">Phil Gordon's Little Gold Book</span>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ============ SIDEBAR COLUMN ============ -->
+  <aside class="col-side">
+
+    <div class="panel">
+      <div class="box-head"><span class="moon">☾</span><span>Nav</span><span class="rule"></span></div>
+      <nav class="navlist">
+        <a href="#top">Home</a>
+        <a href="https://github.com/gacaw" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/will-gaca-8ab82824a/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://letterboxd.com/willg003/" target="_blank" rel="noopener">Letterboxd</a>
+        <a href="https://solverah.com" target="_blank" rel="noopener">Solverah</a>
+        <a href="mailto:will.gaca@gmail.com">E-mail ✉</a>
+      </nav>
     </div>
-  </article>
 
-  <article class="panel entry-panel entry reveal">
-    <div class="spine"></div>
-    <div class="body">
-      <h3>Live Broadcast Graphics @ SMT <span class="when">2024</span></h3>
-      <p class="line">Broacasting tools and score bugs.</p>
-      <div class="tags">
-        <span>C#</span><span>Real-time</span><span>Data viz</span>
-      </div>
-    </div>
-  </article>
+    <a class="panel status-box" id="discord-status" href="https://discord.com/users/344522720857423882" target="_blank" rel="noopener">
+      <div class="online"><span class="live"></span><span id="discord-state">Online</span></div>
+      <div class="sub">discord: willg003</div>
+    </a>
 
-  <article class="panel entry-panel entry reveal">
-    <div class="spine"></div>
-    <div class="body">
-      <h3>Crazy Pineapple Solver <span class="when">In progress</span></h3>
-      <p class="line">Poker strategy solver. Hobby project.</p>
-      <div class="tags">
-        <span>React</span><span>JavaScript</span><span>Web Workers</span>
-      </div>
-      <p class="plink"><a href="https://github.com/gacaw/pineapple-solver" target="_blank" rel="noopener">Repo →</a></p>
-    </div>
-  </article>
+    <div class="panel fish-box">
+      <div class="box-head"><span class="moon">☾</span><span>Fish</span><span class="rule"></span></div>
+      <p class="fact-line">My favorite fish: Takita's Mudskipper</p>
+      <img class="cover-img" src="takitasmudskipper.jpeg" alt="Takita's Mudskipper resting in shallow water on a mudflat">
 
-  <article class="panel entry-panel entry reveal">
-    <div class="spine"></div>
-    <div class="body">
-      <h3>Banking Security Protocol <span class="when">Spring 2025</span></h3>
-      <p class="line">SSH/SSL implementation with crypto primitives. RPI course project.</p>
-      <div class="tags">
-        <span>C</span><span>RSA / DES</span><span>Pen testing</span>
-      </div>
-      <p class="plink"><a href="https://github.com/gacaw/Crypto-Proj-2025" target="_blank" rel="noopener">Repo →</a></p>
-    </div>
-  </article>
-
-  <div class="section-label"><span class="idx">02</span><span>About</span><span class="rule"></span></div>
-
-  <article class="panel reveal">
-    <div class="facts">
-      <div class="fact">
-        <span class="label">Currently reading:</span>
-        <span class="val">Phil Gordon's Little Gold Book</span>
-      </div>
-      <div class="fact">
-        <span class="label">Last movie watched:</span>
-        <span class="val">World War Z <a href="https://letterboxd.com/willg003/" target="_blank" rel="noopener">Letterboxd</a></span>
-      </div>
-      <div class="fact">
-        <span class="label">My favorite fish:</span>
-        <span class="val">Takita's Mudskipper</span>
-      </div>
+      <!-- Fish form: swap the ID in the action URL for your Formspree form ID -->
+      <form class="suggest-form" id="fish-form" action="https://formspree.io/f/mdarqrny" method="POST">
+        <label class="suggest-form-label" for="fish-input">What's your favorite fish?</label>
+        <div class="suggest-form-row">
+          <input id="fish-input" name="favorite_fish" type="text" required
+                 maxlength="100" placeholder="there are those who fish and those who just disturb the water">
+          <button type="submit" aria-label="Submit" title="Submit">
+            <svg class="suggest-btn-icon" viewBox="0 0 64 44" width="34" height="23" aria-hidden="true" focusable="false">
+              <path d="M15 22 L3 10 Q0 22 7 22 Q0 22 3 34 Z" fill="#4a8a99"/>
+              <path d="M30 9 Q35 0 44 4 L38 13 Z" fill="#4a8a99"/>
+              <path d="M30 35 Q35 44 44 40 L38 31 Z" fill="#4a8a99"/>
+              <path d="M12 22 Q26 5 44 10 Q58 15 58 22 Q58 29 44 34 Q26 39 12 22 Z" fill="#7fd4e8"/>
+              <path d="M41 9.5 Q58 15 58 22 Q58 29 44 34 Q47 21 41 9.5 Z" fill="#a9e6f5"/>
+              <circle cx="47" cy="20" r="4.5" fill="#0a2a33"/>
+              <circle cx="45.5" cy="18.5" r="1.8" fill="#e4eaec"/>
+            </svg>
+          </button>
+        </div>
+        <p class="suggest-status" id="fish-status" role="status"></p>
+      </form>
     </div>
 
-    <figure class="fish-photo">
-      <img src="takitasmudskipper.jpeg" alt="Takita's Mudskipper resting in shallow water on a mudflat"
-           onerror="this.closest('.fish-photo').classList.add('empty');">
-    </figure>
+    <!-- Movie title/poster/link are filled in by JS from the Letterboxd RSS feed (see script below).
+         The text here is just the fallback shown until that fetch resolves (or if it fails). -->
+    <div class="panel movie-box">
+      <div class="box-head"><span class="moon">☾</span><span>Movies</span><span class="rule"></span></div>
+      <p class="fact-line">Last watched: "<span id="movie-title">World War Z</span>"</p>
+      <img class="cover-img" id="movie-poster" src="" alt="" style="display:none;">
+      <p class="plink"><a id="movie-link" href="https://letterboxd.com/willg003/" target="_blank" rel="noopener">Letterboxd →</a></p>
 
-    <form class="fish-form" id="fish-form" action="https://formspree.io/f/mdarqrny" method="POST">
-      <label class="fish-form-label" for="fish-input">Whats your favorite fish?</label>
-      <div class="fish-form-row">
-        <input id="fish-input" name="favorite_fish" type="text" required
-               maxlength="100" placeholder="There are those who fish and those who just disturb the water">
-        <button type="submit" aria-label="Submit" title="Submit">
-          <svg class="fish-btn-icon" viewBox="0 0 64 44" width="34" height="23" aria-hidden="true" focusable="false">
-            <path d="M15 22 L3 10 Q0 22 7 22 Q0 22 3 34 Z" fill="#4a8a99"/>
-            <path d="M30 9 Q35 0 44 4 L38 13 Z" fill="#4a8a99"/>
-            <path d="M30 35 Q35 44 44 40 L38 31 Z" fill="#4a8a99"/>
-            <path d="M12 22 Q26 5 44 10 Q58 15 58 22 Q58 29 44 34 Q26 39 12 22 Z" fill="#7fd4e8"/>
-            <path d="M41 9.5 Q58 15 58 22 Q58 29 44 34 Q47 21 41 9.5 Z" fill="#a9e6f5"/>
-            <circle cx="47" cy="20" r="4.5" fill="#0a2a33"/>
-            <circle cx="45.5" cy="18.5" r="1.8" fill="#e4eaec"/>
-          </svg>
-        </button>
+      <!-- Movie form: reuses the fish form's Formspree endpoint (mdarqrny) -->
+      <form class="suggest-form" id="movie-form" action="https://formspree.io/f/mdarqrny" method="POST">
+        <label class="suggest-form-label" for="movie-input">What should I watch next?</label>
+        <div class="suggest-form-row">
+          <input id="movie-input" name="movie_suggestion" type="text" required
+                 maxlength="100" placeholder="suggest a movie for me">
+          <button type="submit" aria-label="Submit" title="Submit">
+            <svg class="suggest-btn-icon" viewBox="0 0 44 34" width="30" height="23" aria-hidden="true" focusable="false">
+              <rect x="2" y="12" width="40" height="20" rx="1.5" fill="#7fd4e8"/>
+              <path d="M2 12 L11 2 H18 L11 12 Z" fill="#4a8a99"/>
+              <path d="M18 12 L27 2 H33 L27 12 Z" fill="#4a8a99"/>
+              <path d="M33 12 L38 6 H42 L42 12 Z" fill="#4a8a99"/>
+              <rect x="2" y="2" width="40" height="10" fill="#a9e6f5"/>
+            </svg>
+          </button>
+        </div>
+        <p class="suggest-status" id="movie-status" role="status"></p>
+      </form>
+    </div>
+
+    <!-- Last Listened: update the title/artist with whatever you're currently into -->
+    <div class="panel music-box">
+      <div class="box-head"><span class="moon">☾</span><span>Last Listened</span><span class="rule"></span></div>
+      <div class="now-row">
+        <div class="thumb">♪</div>
+        <div class="meta">
+          <div class="t">Song Title coming soon...</div>
+          <div class="a">Artist Name coming soon...</div>
+        </div>
       </div>
-      <p class="fish-status" id="fish-status" role="status"></p>
-    </form>
-  </article>
+      <div class="when">Played recently</div>
+    </div>
+
+  </aside>
 
 </div>
 
@@ -368,31 +422,71 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  const fishForm = document.getElementById('fish-form');
-  const fishStatus = document.getElementById('fish-status');
-  fishForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = fishForm.querySelector('button');
-    btn.disabled = true;
-    fishStatus.textContent = 'Sending...';
-    try {
-      const res = await fetch(fishForm.action, {
-        method: 'POST',
-        body: new FormData(fishForm),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        fishStatus.textContent = 'nice fish';
-        fishForm.reset();
-      } else {
-        fishStatus.textContent = 'Try again?';
+  function wireSuggestForm(formId, statusId, successMessage) {
+    const form = document.getElementById(formId);
+    const status = document.getElementById(statusId);
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button');
+      btn.disabled = true;
+      status.textContent = 'Sending...';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          status.textContent = successMessage;
+          form.reset();
+        } else {
+          status.textContent = 'Try again?';
+          btn.disabled = false;
+        }
+      } catch {
+        status.textContent = 'Try again?';
         btn.disabled = false;
       }
-    } catch {
-      fishStatus.textContent = 'Try again?';
-      btn.disabled = false;
-    }
-  });
+    });
+  }
+  wireSuggestForm('fish-form', 'fish-status', 'nice fish');
+  wireSuggestForm('movie-form', 'movie-status', 'noted, thanks');
+
+  const DISCORD_ID = '344522720857423882';
+  async function updateDiscordStatus() {
+    try {
+      const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
+      const json = await res.json();
+      if (!json.success) return;
+      const labels = { online: 'Online', idle: 'Idle', dnd: 'Do Not Disturb', offline: 'Offline' };
+      const status = json.data.discord_status || 'offline';
+      document.getElementById('discord-state').textContent = labels[status] || 'Offline';
+      document.getElementById('discord-status').dataset.status = status;
+    } catch {}
+  }
+  updateDiscordStatus();
+  setInterval(updateDiscordStatus, 60000);
+
+  const LETTERBOXD_RSS = 'https://letterboxd.com/willg003/rss/';
+  async function updateLastMovie() {
+    try {
+      const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(LETTERBOXD_RSS)}`);
+      const json = await res.json();
+      if (json.status !== 'ok' || !json.items || !json.items.length) return;
+      const item = json.items[0];
+      const title = item.title.replace(/,\s*\d{4}\s*(-\s*[★½]+)?\s*$/, '').trim();
+      const posterMatch = item.description.match(/<img[^>]+src="([^"]+)"/i);
+      document.getElementById('movie-title').textContent = title;
+      document.getElementById('movie-link').href = item.link;
+      if (posterMatch) {
+        const poster = document.getElementById('movie-poster');
+        poster.src = posterMatch[1];
+        poster.alt = title + ' poster';
+        poster.style.display = 'block';
+      }
+    } catch {}
+  }
+  updateLastMovie();
 </script>
 
 </body>
