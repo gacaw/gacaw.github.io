@@ -478,9 +478,6 @@
   }
   updateLastMovie();
 
-  // Word of the day, pulled from Merriam-Webster's RSS feed (Oxford doesn't
-  // publish a public word-of-the-day feed, so this is the closest free,
-  // no-API-key equivalent) via rss2json, same approach as the movie fetch above.
   const WOTD_RSS = 'https://www.merriam-webster.com/wotd/feed/rss2';
   async function updateWordOfDay() {
     try {
