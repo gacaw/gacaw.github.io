@@ -64,7 +64,6 @@
   .masthead { grid-area: head; }
   .col-main { grid-area: main; min-width: 0; }
   .col-side { grid-area: side; min-width: 0;
-    /* sidebar sticks while you scroll the taller main column */
     position: sticky; top: 24px;
   }
 
@@ -84,7 +83,6 @@
   .panel::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
   .panel::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
 
-  /* little header bar inside a box (like the STARS / BLOG headers) */
   .box-head {
     display: flex; align-items: center; gap: 10px;
     font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
@@ -97,6 +95,13 @@
 
   /* ============ MASTHEAD ============ */
   .masthead.panel { padding: 30px 30px 26px; margin-bottom: 0; }
+  .masthead-row { display: flex; align-items: center; gap: 26px; }
+  .masthead-copy { min-width: 0; }
+  .avatar {
+    width: 92px; height: 92px; flex-shrink: 0; object-fit: cover;
+    border: 1px solid var(--edge); filter: grayscale(0.15) contrast(1.02);
+  }
+  .masthead-row.no-avatar .avatar { display: none; }
   .eyebrow {
     font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--arc);
     display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
@@ -108,12 +113,13 @@
   }
   h1 .tag { color: var(--arc); }
   .intro { color: var(--muted); margin-top: 16px; max-width: 60ch; font-size: 14px; }
-  .header-links { margin-top: 22px; display: flex; gap: 8px; flex-wrap: wrap; font-size: 12px; letter-spacing: .08em; }
-  .header-links a {
-    border: 1px solid var(--edge); padding: 7px 13px; color: var(--text);
-    transition: border-color .2s, color .2s, background .2s;
+  .quick-facts { list-style: none; margin-top: 14px; display: flex; flex-direction: column; gap: 7px; }
+  .quick-facts li { position: relative; padding-left: 21px; font-size: 13.5px; color: var(--text); line-height: 1.6; }
+  .quick-facts li::before { content: "\2606"; color: var(--arc-dim); font-size: 12px; position: absolute; left: 0; top: 0.2em; }
+
+  @media (max-width: 560px) {
+    .masthead-row { flex-direction: column; align-items: flex-start; gap: 18px; }
   }
-  .header-links a:hover { border-color: var(--arc-dim); color: var(--arc); background: rgba(127,212,232,0.06); }
 
   /* ============ SECTION LABEL ============ */
   .section-label {
@@ -233,7 +239,7 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .suggest-form button:hover .suggest-btn-icon, .status-box .online .live { animation: none; }
-    .entry .spine, .cover-img, .header-links a, .reveal, .navlist a { transition: none; }
+    .entry .spine, .cover-img, .reveal, .navlist a { transition: none; }
     .reveal { opacity: 1; transform: none; }
   }
 </style>
@@ -245,36 +251,32 @@
 
 <div class="wrap" id="top">
 
-  <header class="masthead panel">
-    <div class="eyebrow">Software Developer · RPI CS '26</div>
-    <h1>Will <span class="tag">Gaca</span></h1>
-    <p class="intro">CS grad from RPI. I like card games, movies, video games, and nature. Night owl.</p>
-    <div class="header-links">
-    </div>
-  </header>
-
   <!-- ============ MAIN COLUMN ============ -->
   <main class="col-main">
 
-    <div class="section-label"><span class="idx">01</span><span>About Me</span><span class="rule"></span></div>
-
+  
     <article class="panel reveal">
       <p class="bio">
-        coming soon...
+         Hi! This is my first website! My name is Will Gaca, I'm a junior developer from the US.
       </p>
+      <ul class="quick-facts">
+          <li>I love any and all card games, but I have a preference for poker and pokemon</li>
+          <li>I love movies! Especially the bad ones, you should check out my <a href="https://letterboxd.com/willg003/" target="_blank" rel="noopener">Letterboxd</a></li>
+          <li>sunset > sunrise | winter > summer</li>
+          <li>My favorite music genre is House</li>
+          <li>My favorite language is python</li>
+          <li>The word of the day is <a id="word-of-day-link" href="https://www.merriam-webster.com/word-of-the-day" target="_blank" rel="noopener"><strong id="word-of-day">—</strong></a></li>
+      </ul>
     </article>
 
-    <div class="section-label"><span class="idx">02</span><span>Projects</span><span class="rule"></span></div>
-
+  
     <article class="panel entries-panel reveal">
       <div class="entry">
         <div class="spine"></div>
         <div class="body">
           <h3>Solverah <span class="when">2025–2026</span></h3>
-          <p class="line">AI career-matching platform. Full-stack developer.</p>
-          <div class="tags"><span>Python</span><span>React</span><span>Flask</span><span>NLP</span></div>
+          <p class="line">Building a different way to find jobs</p>
           <p class="plink"><a href="https://solverah.com" target="_blank" rel="noopener">solverah.com →</a></p>
-          <p class="plink"><span class="note">Private repo. Code available on request.</span></p>
         </div>
       </div>
 
@@ -282,8 +284,8 @@
         <div class="spine"></div>
         <div class="body">
           <h3>Live Broadcast Graphics @ SMT <span class="when">2024</span></h3>
-          <p class="line">Broadcasting tools and score bugs.</p>
-          <div class="tags"><span>C#</span><span>Real-time</span><span>Data viz</span></div>
+          <p class="line">Building broadcasting tools and score bugs</p>
+          
         </div>
       </div>
 
@@ -291,8 +293,7 @@
         <div class="spine"></div>
         <div class="body">
           <h3>Crazy Pineapple Solver <span class="when">In progress</span></h3>
-          <p class="line">Poker strategy solver. Hobby project.</p>
-          <div class="tags"><span>React</span><span>JavaScript</span><span>Web Workers</span></div>
+          <p class="line">Poker strategy hobby porject for the table game Crazy Pineapple</p>
           <p class="plink"><a href="https://github.com/gacaw/pineapple-solver" target="_blank" rel="noopener">Repo →</a></p>
         </div>
       </div>
@@ -301,17 +302,14 @@
         <div class="spine"></div>
         <div class="body">
           <h3>Banking Security Protocol <span class="when">Spring 2025</span></h3>
-          <p class="line">SSH/SSL implementation with crypto primitives. RPI course project.</p>
-          <div class="tags"><span>C</span><span>RSA / DES</span><span>Pen testing</span></div>
+          <p class="line">RPI course project with SSH/SSL and crypto primitives</p>
           <p class="plink"><a href="https://github.com/gacaw/Crypto-Proj-2025" target="_blank" rel="noopener">Repo →</a></p>
         </div>
       </div>
     </article>
 
-    <div class="section-label"><span class="idx">03</span><span>Now</span><span class="rule"></span></div>
-
+    
     <article class="panel reveal">
-      <!-- Running tabs: edit the text after the colon. Copy a .fact block to add a line. -->
       <div class="facts">
         <div class="fact">
           <span class="label">Currently reading:</span>
@@ -326,7 +324,7 @@
   <aside class="col-side">
 
     <div class="panel">
-      <div class="box-head"><span class="moon">☾</span><span>Nav</span><span class="rule"></span></div>
+      <div class="box-head"><span class="moon">☾</span><span>Follow me!</span><span class="rule"></span></div>
       <nav class="navlist">
         <a href="#top">Home</a>
         <a href="https://github.com/gacaw" target="_blank" rel="noopener">GitHub</a>
@@ -343,11 +341,9 @@
     </a>
 
     <div class="panel fish-box">
-      <div class="box-head"><span class="moon">☾</span><span>Fish</span><span class="rule"></span></div>
       <p class="fact-line">My favorite fish: Takita's Mudskipper</p>
       <img class="cover-img" src="takitasmudskipper.jpeg" alt="Takita's Mudskipper resting in shallow water on a mudflat">
 
-      <!-- Fish form: swap the ID in the action URL for your Formspree form ID -->
       <form class="suggest-form" id="fish-form" action="https://formspree.io/f/mdarqrny" method="POST">
         <label class="suggest-form-label" for="fish-input">What's your favorite fish?</label>
         <div class="suggest-form-row">
@@ -369,15 +365,11 @@
       </form>
     </div>
 
-    <!-- Movie title/poster/link are filled in by JS from the Letterboxd RSS feed (see script below).
-         The text here is just the fallback shown until that fetch resolves (or if it fails). -->
     <div class="panel movie-box">
-      <div class="box-head"><span class="moon">☾</span><span>Movies</span><span class="rule"></span></div>
       <p class="fact-line">Last watched: "<span id="movie-title">World War Z</span>"</p>
       <img class="cover-img" id="movie-poster" src="" alt="" style="display:none;">
-      <p class="plink"><a id="movie-link" href="https://letterboxd.com/willg003/" target="_blank" rel="noopener">Letterboxd →</a></p>
+      <p class="plink"><a id="movie-link" href="https://letterboxd.com/willg003/" target="_blank" rel="noopener"></a></p>
 
-      <!-- Movie form: reuses the fish form's Formspree endpoint (mdarqrny) -->
       <form class="suggest-form" id="movie-form" action="https://formspree.io/f/mdarqrny" method="POST">
         <label class="suggest-form-label" for="movie-input">What should I watch next?</label>
         <div class="suggest-form-row">
@@ -397,9 +389,8 @@
       </form>
     </div>
 
-    <!-- Last Listened: update the title/artist with whatever you're currently into -->
     <div class="panel music-box">
-      <div class="box-head"><span class="moon">☾</span><span>Last Listened</span><span class="rule"></span></div>
+      <div class="box-head"><span class="moon">☾</span><span>Now playing...</span><span class="rule"></span></div>
       <div class="now-row">
         <div class="thumb">♪</div>
         <div class="meta">
@@ -407,7 +398,6 @@
           <div class="a">Artist Name coming soon...</div>
         </div>
       </div>
-      <div class="when">Played recently</div>
     </div>
 
   </aside>
@@ -487,6 +477,22 @@
     } catch {}
   }
   updateLastMovie();
+
+  // Word of the day, pulled from Merriam-Webster's RSS feed (Oxford doesn't
+  // publish a public word-of-the-day feed, so this is the closest free,
+  // no-API-key equivalent) via rss2json, same approach as the movie fetch above.
+  const WOTD_RSS = 'https://www.merriam-webster.com/wotd/feed/rss2';
+  async function updateWordOfDay() {
+    try {
+      const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(WOTD_RSS)}`);
+      const json = await res.json();
+      if (json.status !== 'ok' || !json.items || !json.items.length) return;
+      const item = json.items[0];
+      document.getElementById('word-of-day').textContent = item.title;
+      document.getElementById('word-of-day-link').href = item.link;
+    } catch {}
+  }
+  updateWordOfDay();
 </script>
 
 </body>
